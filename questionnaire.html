@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Improved Experiment Survey</title>
+    <style>
+        /* 1. DESIGN SYSTEM & SETUP */
+        :root {
+            --primary-color: #007AFF; /* A modern, friendly blue */
+            --primary-hover: #0056b3;
+            --bg-color: #F7F8FA; /* A very light gray background */
+            --card-bg: #FFFFFF;
+            --text-primary: #1D2939; /* Dark gray for main text */
+            --text-secondary: #667085; /* Lighter gray for subtext */
+            --border-color: #E4E7EC;
+            --warning-bg: #FEF7E7;
+            --warning-text: #D48806;
+            --warning-icon-color: #F79009;
+            --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            --border-radius: 12px;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-family);
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            margin: 0;
+            padding: 2rem 1rem;
+            display: grid;
+            place-items: center;
+            min-height: 100vh;
+        }
+        
+        /* 2. LAYOUT & PAGE CONTAINER */
+        .page-container {
+            width: 100%;
+            max-width: 720px;
+        }
+
+        .page {
+            background-color: var(--card-bg);
+            padding: 2.5rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 2rem;
+            border: 1px solid var(--border-color);
+            display: none; /* Hide all pages by default */
+            position: relative;
+        }
+        
+        .page.active {
+            display: block; /* Show only the active page */
+        }
+        
+        .page-number {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            background-color: #f2f4f7;
+            padding: 0.25rem 0.5rem;
+            border-radius: 99px;
+        }
+
+        /* 3. TYPOGRAPHY */
+        h1, h2, h3, h4 {
+            color: var(--text-primary);
+            margin-top: 0;
+            line-height: 1.3;
+        }
+        h2 { font-size: 1.75rem; margin-bottom: 1.5rem; }
+        h3 { font-size: 1.25rem; margin-bottom: 1rem; }
+        p, li { line-height: 1.6; color: var(--text-secondary); }
+        ol, ul { padding-left: 1.5rem; }
+
+        /* 4. FORM ELEMENTS */
+        .form-group {
+            margin-bottom: 2rem;
+        }
+
+        .question-label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        /* Custom Radio Buttons */
+        .radio-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+        .radio-label {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            transition: background-color 0.2s, border-color 0.2s;
+        }
+        .radio-label:hover {
+            background-color: #f9fafb;
+        }
+        .radio-label input[type="radio"] {
+            display: none;
+        }
+        .radio-custom {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--border-color);
+            border-radius: 50%;
+            margin-right: 12px;
+            display: grid;
+            place-items: center;
+            transition: border-color 0.2s;
+        }
+        .radio-custom::before {
+            content: '';
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: var(--primary-color);
+            transform: scale(0);
+            transition: transform 0.2s ease-in-out;
+        }
+        .radio-label input[type="radio"]:checked + .radio-custom {
+            border-color: var(--primary-color);
+        }
+        .radio-label input[type="radio"]:checked + .radio-custom::before {
+            transform: scale(1);
+        }
+        .radio-label input[type="radio"]:checked ~ .radio-text {
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        /* Text, Number, and Select Inputs */
+        input[type="number"], select {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            font-size: 1rem;
+            font-family: inherit;
+        }
+        input[type="number"]:focus, select:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.2);
+        }
+
+        /* Custom Sliders */
+        .slider {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 8px;
+            background: #e9ecef;
+            border-radius: 5px;
+            outline: none;
+            margin: 10px 0;
+        }
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            background: var(--primary-color);
+            cursor: pointer;
+            border-radius: 50%;
+            border: 3px solid var(--card-bg);
+            box-shadow: 0 0 2px rgba(0,0,0,0.2);
+        }
+        .slider::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            background: var(--primary-color);
+            cursor: pointer;
+            border-radius: 50%;
+            border: 3px solid var(--card-bg);
+            box-shadow: 0 0 2px rgba(0,0,0,0.2);
+        }
+        .slider-labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        /* 5. COMPONENTS */
+        .button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            margin-top: 1.5rem;
+            transition: background-color 0.2s, transform 0.1s;
+        }
+        .button:hover {
+            background-color: var(--primary-hover);
+        }
+        .button:active {
+            transform: translateY(1px);
+        }
+        
+        .nav-buttons {
+            display: flex;
+            justify-content: flex-end; /* Align to the right */
+            margin-top: 2rem;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: var(--border-radius);
+            margin-bottom: 2rem;
+        }
+
+        .info-box {
+            background-color: var(--warning-bg);
+            color: var(--warning-text);
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        .info-box p { color: var(--warning-text); }
+        .info-box-icon {
+            flex-shrink: 0;
+            color: var(--warning-icon-color);
+        }
+        
+        .score-display {
+            text-align: center;
+            background-color: #f2f4f7;
+            padding: 2rem;
+            border-radius: var(--border-radius);
+        }
+        .score-display .score-number {
+            font-size: 4rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+        .score-display .score-label {
+            color: var(--text-secondary);
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="page-container">
+    <!-- Page 1 -->
+    <section class="page active">
+        <div class="page-number"></div> <!-- <-- DYNAMICALLY SET BY JS -->
+        <h2>Personal Information</h2>
+        
+        <div class="form-group">
+            <label class="question-label">What's your physical sex?</label>
+            <div class="radio-group" style="flex-direction: row; gap: 1rem;">
+                <label class="radio-label">
+                    <input type="radio" name="sex">
+                    <span class="radio-custom"></span>
+                    <span class="radio-text">Male</span>
+                </label>
+                <label class="radio-label">
+                    <input type="radio" name="sex">
+                    <span class="radio-custom"></span>
+                    <span class="radio-text">Female</span>
+                </label>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label class="question-label" for="age">How old are you? Please enter the numerical age.*</label>
+            <input type="number" name="age" id="age" placeholder="e.g., 35">
+        </div>
+        
+        <div class="form-group">
+            <label class="question-label" for="education">What is your highest level of education?*</label>
+            <select name="education" id="education">
+                <option>Elementary school or below</option>
+                <option>Junior high school</option>
+                <option>High school</option>
+                <option>College/Bachelor's Degree</option>
+                <option>Master's Degree</option>
+                <option>Doctorate/Ph.D.</option>
+            </select>
+        </div>
+        
+        <div class="nav-buttons">
+            <button class="button next-btn">Next</button>
+        </div>
+    </section>
+
+    <!-- Page 2 -->
+    <section class="page">
+        <div class="page-number"></div> <!-- <-- DYNAMICALLY SET BY JS -->
+        <h2>Agreement Scale</h2>
+        
+        <div class="form-group">
+            <label class="question-label">If I am dishonest about my dietary habits in real life, I worry that it could harm my future health.*</label>
+            <div class="radio-group">
+                <label class="radio-label"><input type="radio" name="q1"><span class="radio-custom"></span><span class="radio-text">Strongly disagree</span></label>
+                <label class="radio-label"><input type="radio" name="q1"><span class="radio-custom"></span><span class="radio-text">Disagree</span></label>
+                <label class="radio-label"><input type="radio" name="q1"><span class="radio-custom"></span><span class="radio-text">Somewhat disagree</span></label>
+                <label class="radio-label"><input type="radio" name="q1"><span class="radio-custom"></span><span class="radio-text">Neutral</span></label>
+                <label class="radio-label"><input type="radio" name="q1"><span class="radio-custom"></span><span class="radio-text">Somewhat agree</span></label>
+                <label class="radio-label"><input type="radio" name="q1"><span class="radio-custom"></span><span class="radio-text">Agree</span></label>
+                <label class="radio-label"><input type="radio" name="q1"><span class="radio-custom"></span><span class="radio-text">Strongly agree</span></label>
+            </div>
+        </div>
+        
+        <div class="nav-buttons">
+            <button class="button next-btn">Next</button>
+        </div>
+    </section>
+
+    <!-- Page 3 -->
+    <section class="page">
+        <div class="page-number"></div> <!-- <-- DYNAMICALLY SET BY JS -->
+        <div class="info-box">
+            <div class="info-box-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.46 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+            </div>
+            <div>
+                <h3>Please Note</h3>
+                <p>In the following sections, we will present important information. Please read it carefully.</p>
+            </div>
+        </div>
+
+        <p>Here are a few points to note:</p>
+        <ol>
+            <li>After reading the information, we will ask you questions related to it.</li>
+            <li>Our questionnaire does not allow going back to the previous page. You cannot revisit or modify your answers.</li>
+            <li>Later, you will receive a positive or negative assessment based on your answers.</li>
+        </ol>
+        <p>Please read each page carefully to avoid missing any important information and to protect your rights.</p>
+        
+        <div class="nav-buttons">
+            <button class="button next-btn">Next</button>
+        </div>
+    </section>
+
+    <!-- Page 4 -->
+     <section class="page">
+        <div class="page-number"></div> <!-- <-- DYNAMICALLY SET BY JS -->
+        <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=1470&auto=format&fit=crop" alt="Doctor with tablet">
+        <h2>Consultation Reminder</h2>
+        <p>On the next page, please report your dietary behaviors over the past week.</p>
+        <ol>
+            <li>You must use the slider to answer the questions.</li>
+            <li>If your answer aligns with the initial position of the slider, please move it slightly and then back to the initial position to help the system recognize your response.</li>
+        </ol>
+        <div class="nav-buttons">
+            <button class="button next-btn">Next</button>
+        </div>
+    </section>
+    
+    <!-- Page 5 -->
+    <section class="page">
+        <div class="page-number"></div> <!-- <-- DYNAMICALLY SET BY JS -->
+        <h2>Report Your Dietary Behaviors</h2>
+        <p>Please report your dietary behavior in the past week. Adjust the slider according to your level of agreement with the statements.</p>
+        
+        <div class="form-group">
+            <label class="question-label">1. "Did you eat three meals regularly in the last week?"*</label>
+            <input type="range" class="slider" min="0" max="100" value="50">
+            <div class="slider-labels">
+                <span>I never ate meals regularly</span>
+                <span>I ate 3 meals regularly every single day</span>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label class="question-label">2. "Did you not eat sweets or snacks in the last week?"*</label>
+            <input type="range" class="slider" min="0" max="100" value="50">
+            <div class="slider-labels">
+                <span>I ate sweets/snacks every day</span>
+                <span>I never ate sweets or snacks</span>
+            </div>
+        </div>
+        
+        <div class="nav-buttons">
+            <button class="button next-btn">Next</button>
+        </div>
+    </section>
+
+    <!-- Page 6 -->
+    <section class="page">
+        <div class="page-number"></div> <!-- <-- DYNAMICALLY SET BY JS -->
+        <h2>Your Results</h2>
+        <p>Based on your responses, we have calculated a score for your diet.</p>
+
+        <div class="score-display">
+            <div class="score-label">Your score is</div>
+            <div class="score-number">76</div>
+            <div class="score-label">out of 108</div>
+        </div>
+
+        <h3 style="margin-top: 2rem;">Suggestions</h3>
+        <p>Here are some recommendations relevant to your score:</p>
+        
+        <div class="info-box" style="background-color: #f0f9ff; color: #0c4a6e;">
+            <div>
+                <h4>Score Range: 61-90</h4>
+                <p style="color: #0c4a6e;">Although you are doing slightly better, don't rest on your laurels. Please make an effort to change your dietary habits.</p>
+            </div>
+        </div>
+
+        <div class="nav-buttons">
+            <button class="button next-btn">Next</button>
+        </div>
+    </section>
+    
+    <!-- Final Page 7 -->
+    <section class="page">
+        <div class="page-number"></div> <!-- <-- DYNAMICALLY SET BY JS -->
+        <h2>Thank You!</h2>
+        <p>You have completed the survey. Your responses have been recorded.</p>
+        <div class="nav-buttons">
+             <button class="button">Finish</button>
+        </div>
+    </section>
+
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const pages = document.querySelectorAll('.page');
+        const nextButtons = document.querySelectorAll('.next-btn');
+        const totalPages = pages.length; // <-- Get total number of pages
+        let currentPageIndex = 0;
+
+        function showPage(index) {
+            // Hide all pages
+            pages.forEach(page => page.classList.remove('active'));
+            
+            // Show the target page
+            const currentPage = pages[index];
+            if (currentPage) {
+                currentPage.classList.add('active');
+
+                // Find the page number element within the current page and update it
+                const pageNumberElement = currentPage.querySelector('.page-number');
+                if (pageNumberElement) {
+                    pageNumberElement.textContent = `${index + 1} / ${totalPages}`;
+                }
+            }
+        }
+
+        nextButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const currentPage = button.closest('.page');
+                const currentIndex = Array.from(pages).indexOf(currentPage);
+                
+                if (currentIndex < pages.length - 1) {
+                    showPage(currentIndex + 1);
+                }
+            });
+        });
+
+        // Show the first page initially and set its page number
+        showPage(currentPageIndex);
+    });
+</script>
+
+</body>
+</html>
