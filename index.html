@@ -214,11 +214,24 @@
         .button:active {
             transform: translateY(1px);
         }
+        .button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
+        .button:disabled:hover {
+            background-color: #ccc;
+        }
         
         .nav-buttons {
             display: flex;
-            justify-content: flex-end; /* Align to the right */
+            justify-content: space-between; /* Space between buttons */
             margin-top: 2rem;
+            gap: 1rem;
+        }
+        
+        .nav-buttons .prev-btn {
+            visibility: hidden; /* Hidden by default, shown via JS */
         }
 
         img {
@@ -264,176 +277,790 @@
 <body>
 
 <div class="page-container">
-    <!-- Page 1 -->
+    <!-- Page 1: Informed Consent Form -->
     <section class="page active">
+        <div class="page-number"></div>
+        <h2>研究參與者知情同意書</h2>
+        
+        <div style="max-height: 400px; overflow-y: auto; border: 1px solid var(--border-color); padding: 1.5rem; border-radius: 8px; margin-bottom: 1.5rem; background-color: #f9fafb; font-size: 0.95rem; line-height: 1.7;">
+            <p>您被邀請參與此研究，擔任研究參與者(以下稱為研究對象)，這份表格將提供您本研究之相關資訊，希望能在研究進行前，讓您對此研究有充分的瞭解。研究計畫主持人或經妥善訓練之研究團隊人員，將親自向您詳細說明內容，並回答您對此研究的任何疑問。您不須立即決定是否參加本研究，請您慎重考慮後，才決定是否於同意書上簽名。您須簽署同意書後才能參與本研究，此文件將視為您的同意紀錄。即使在您同意後，您仍然可以隨時退出本研究而不需任何理由。</p>
+
+            <h4 style="margin-top: 1rem; margin-bottom: 0.5rem;">計畫基本資訊</h4>
+            <p>計畫中文名稱：飲食控制與數位系統實驗 (線上進行)<br>
+            計畫英文名稱：Diet control and digital system experiment<br>
+            研究機構名稱：清華大學　　　委託單位/機構：服務科學所<br>
+            經費來源：自籌<br>
+            計畫主持人：林柏亞　　　　　單位/職稱：研究生<br>
+            共同主持人：雷松亞　　　　　單位/職稱：特聘教授<br>
+            共同主持人：艾德加　　　　　單位/職稱：博班生<br>
+            聯絡人：林柏亞　　　　　　聯絡電話：0978178933<br>
+            聯絡E-mail：sharon.lin@iss.nthu.edu.tw</p>
+
+            <h4 style="margin-top: 1rem; margin-bottom: 0.5rem;">研究目的</h4>
+            <p>為了瞭解數位系統設計對飲食控制回報的影響及使用者回報行為，誠摯邀請您參與本研究。透過參與，您也能更深入了解自己平時的飲食習慣，進而促進未來的飲食健康。</p>
+
+            <h4 style="margin-top: 1rem; margin-bottom: 0.5rem;">研究對象參與條件</h4>
+            <p><strong>納入條件：</strong><br>
+            • 年齡18歲到65歲之間的健康成人，且自願參與本研究<br>
+            • 具備流利的中文閱讀能力<br>
+            • 台灣人為主，或是在台灣生活超過1年者也可<br>
+            • 需使用電腦進行實驗<br>
+            <br>
+            <strong>排除條件：</strong><br>
+            • 知情此實驗內容者<br>
+            • 無法使用智慧型手機進行實驗者</p>
+
+            <h4 style="margin-top: 1rem; margin-bottom: 0.5rem;">研究方法與程序</h4>
+            <p>此實驗為遠端進行，且須使用手機非電腦進行，全程約10分鐘上下。若同意參加此實驗後，會給予你實驗網址連結 (不須安裝 APP)，進入實驗連結後，螢幕畫面將說明實驗流程和內容。您將會在手機螢幕上看到相對應的指示或問題，請參與者根據內容進行回答即可，而您的回答將會被記錄。</p>
+
+            <h4 style="margin-top: 1rem; margin-bottom: 0.5rem;">可預見之風險與保護措施</h4>
+            <p><strong>可預見之風險：</strong><br>
+            過程中可能須請您提供自身過去經驗，或是自我觀點可能會引發些微的情緒反應。<br>
+            <br>
+            <strong>保護措施：</strong><br>
+            • 若不願意揭漏或感到不適，可在任何時間關閉頁面離開，您是完全自由的。<br>
+            • 計畫主持人及研究團隊將會負起保密的責任，受試者的所有資料將會進行保密，且過程中不會收集可供辨認的個人資訊資料。研究資料只供研究用途，只有實驗計畫團隊成員才可使用，5年後會銷毀。</p>
+
+            <h4 style="margin-top: 1rem; margin-bottom: 0.5rem;">預期益處</h4>
+            <p><strong>個人益處：</strong>觀察自身的操作飲食控制產品心態，以幫助長期的健康控制，並給予不同觀點。<br>
+            <br>
+            <strong>社會益處：</strong>幫助資訊產業和醫療產業設計更符合使用者需求的產品。</p>
+
+            <h4 style="margin-top: 1rem; margin-bottom: 0.5rem;">損害補償</h4>
+            <p>研究對象如依本計畫執行或其相關之事由，因而發生不良事件或損害，由計畫主持人林柏亞及國立清華大學依法負損害補償責任。您簽署本知情同意書後，在法律上的任何權利不會因此受影響。</p>
+
+            <h4 style="margin-top: 1rem; margin-bottom: 0.5rem;">個人資料保護</h4>
+            <p>僅有計畫主持人/研究人員得接觸原始資料。計畫主持人將依法把所有可供辨識您身分之紀錄與您的個人隱私資料視為機密來處理。研究人員將以研究代碼代替您的名字及相關個人資料。研究資料將保存至研究結束後至多5年，屆時將予以銷毀。</p>
+
+            <h4 style="margin-top: 1rem; margin-bottom: 0.5rem;">撤回同意權利</h4>
+            <p>您可自由決定是否參加本研究，研究過程中不需要任何理由，可隨時撤回同意或退出研究。如果您拒絕參加或退出，將不會引起任何不愉快。若您決定撤回同意，可透過關掉頁面進行，計畫主持人將會刪除該筆資料。</p>
+
+            <h4 style="margin-top: 1rem; margin-bottom: 0.5rem;">倫理審查與申訴</h4>
+            <p>本研究已經過國立清華大學研究倫理審查委員會審查並已獲得核准。如果您有任何疑問，可以直接詢問研究團隊成員，亦可與國立清華大學研究倫理辦公室聯絡，電話：(03)5715131 # 35133。</p>
+        </div>
+
+        <div class="form-group">
+            <label class="radio-label">
+                <input type="checkbox" name="consent-agreement" style="display: inline-block; width: auto; margin-right: 10px;">
+                <span style="color: var(--text-primary);">我確認已閱讀並了解上述內容，且同意參與本研究。</span>
+            </label>
+        </div>
+        
+        <div class="nav-buttons">
+            <button class="button next-btn" disabled id="consent-next-btn">下一頁</button>
+        </div>
+    </section>
+
+    <!-- Page 2: Personal Information -->
+    <section class="page">
         <div class="page-number"></div> <!-- <-- DYNAMICALLY SET BY JS -->
-        <h2>Personal Information</h2>
+        <h2>背景資訊</h2>
         
         <div class="form-group">
-            <label class="question-label">What's your physical sex?</label>
+            <label class="question-label">您的性別?</label>
             <div class="radio-group" style="flex-direction: row; gap: 1rem;">
                 <label class="radio-label">
                     <input type="radio" name="sex">
                     <span class="radio-custom"></span>
-                    <span class="radio-text">Male</span>
+                    <span class="radio-text">男性</span>
                 </label>
                 <label class="radio-label">
                     <input type="radio" name="sex">
                     <span class="radio-custom"></span>
-                    <span class="radio-text">Female</span>
+                    <span class="radio-text">女性</span>
+                </label>
+                <label class="radio-label">
+                    <input type="radio" name="sex">
+                    <span class="radio-custom"></span>
+                    <span class="radio-text">不方便透漏</span>
                 </label>
             </div>
         </div>
         
         <div class="form-group">
-            <label class="question-label" for="age">How old are you? Please enter the numerical age.*</label>
+            <label class="question-label" for="age">您的年齡? 請輸入數字.*</label>
             <input type="number" name="age" id="age" placeholder="e.g., 35">
         </div>
         
         <div class="form-group">
-            <label class="question-label" for="education">What is your highest level of education?*</label>
+            <label class="question-label" for="education">您的最高學歷? (若為在學中，請依您正就讀的最高學位)*</label>
             <select name="education" id="education">
-                <option>Elementary school or below</option>
-                <option>Junior high school</option>
-                <option>High school</option>
-                <option>College/Bachelor's Degree</option>
-                <option>Master's Degree</option>
-                <option>Doctorate/Ph.D.</option>
+                <option>國小或以下</option>
+                <option>國中</option>
+                <option>高中</option>
+                <option>大專院校</option>
+                <option>碩士</option>
+                <option>博士</option>
             </select>
         </div>
         
         <div class="nav-buttons">
-            <button class="button next-btn">Next</button>
+            <button class="button prev-btn">上一頁</button>
+            <button class="button next-btn">下一頁</button>
         </div>
     </section>
 
-    <!-- Page 2 -->
+    <!-- Page 3: HEXACO-PI-R -->
     <section class="page">
         <div class="page-number"></div> <!-- <-- DYNAMICALLY SET BY JS -->
-        <h2>Agreement Scale</h2>
+        <h2>HEXACO-PI-R</h2>
         
+        <p>下列的描述句是一些關於人們在日常生活中所表現出的行為或想法。填答時，請您仔細閱讀每個描述句，然後根據您對該描述句的同意或不同意的程度，使用下方的滑桿作答。每個人所表現的行為或想法都不一樣，所以答案是沒有對或錯的，只要照實作答就可以了。非常感謝您的合作。</p>
+
+        <div style="background-color: #f0f9ff; color: #0c4a6e; padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem; font-size: 0.9rem;">
+            <p style="margin: 0; color: #0c4a6e;"><strong>評分說明：</strong><br>
+            1 = 極端不同意
+            2 = 不同意
+            3 = 沒有意見
+            4 = 同意
+            5 = 極端同意</p>
+        </div>
+
         <div class="form-group">
-            <label class="question-label">If I am dishonest about my dietary habits in real life, I worry that it could harm my future health.*</label>
-            <div class="radio-group">
-                <label class="radio-label"><input type="radio" name="q1"><span class="radio-custom"></span><span class="radio-text">Strongly disagree</span></label>
-                <label class="radio-label"><input type="radio" name="q1"><span class="radio-custom"></span><span class="radio-text">Disagree</span></label>
-                <label class="radio-label"><input type="radio" name="q1"><span class="radio-custom"></span><span class="radio-text">Somewhat disagree</span></label>
-                <label class="radio-label"><input type="radio" name="q1"><span class="radio-custom"></span><span class="radio-text">Neutral</span></label>
-                <label class="radio-label"><input type="radio" name="q1"><span class="radio-custom"></span><span class="radio-text">Somewhat agree</span></label>
-                <label class="radio-label"><input type="radio" name="q1"><span class="radio-custom"></span><span class="radio-text">Agree</span></label>
-                <label class="radio-label"><input type="radio" name="q1"><span class="radio-custom"></span><span class="radio-text">Strongly agree</span></label>
+            <label class="question-label">(1) 即使我相信用巴結的方式可以得到獎勵，我也不會做。*</label>
+            <input type="range" class="slider" min="1" max="5" value="3">
+            <div class="slider-labels">
+                <span>1 - 極端不同意</span>
+                <span>5 - 極端同意</span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="question-label">(2) 如果我知道自己永遠不會被抓，我也想要去偷一百萬。*</label>
+            <input type="range" class="slider" min="1" max="5" value="3">
+            <div class="slider-labels">
+                <span>1 - 極端不同意</span>
+                <span>5 - 極端同意</span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="question-label">(3) 對我來說，擁有很多金錢不是特別重要。*</label>
+            <input type="range" class="slider" min="1" max="5" value="3">
+            <div class="slider-labels">
+                <span>1 - 極端不同意</span>
+                <span>5 - 極端同意</span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="question-label">(4) 我認為我比一般人有資格得到更多的尊重。*</label>
+            <input type="range" class="slider" min="1" max="5" value="3">
+            <div class="slider-labels">
+                <span>1 - 極端不同意</span>
+                <span>5 - 極端同意</span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="question-label">(5) 如果我想從某人手中得到一些東西，即使那個人講的笑話再不好笑，我也會哈哈大笑。*</label>
+            <input type="range" class="slider" min="1" max="5" value="3">
+            <div class="slider-labels">
+                <span>1 - 極端不同意</span>
+                <span>5 - 極端同意</span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="question-label">(6) 即使很有價值，我也絕不會接受賄賂。*</label>
+            <input type="range" class="slider" min="1" max="5" value="3">
+            <div class="slider-labels">
+                <span>1 - 極端不同意</span>
+                <span>5 - 極端同意</span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="question-label">(7) 如果有機會可以擁有昂貴的奢侈品，我會獲得很大的快樂。*</label>
+            <input type="range" class="slider" min="1" max="5" value="3">
+            <div class="slider-labels">
+                <span>1 - 極端不同意</span>
+                <span>5 - 極端同意</span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="question-label">(8) 我想讓別人知道我是個地位高的重要人物。*</label>
+            <input type="range" class="slider" min="1" max="5" value="3">
+            <div class="slider-labels">
+                <span>1 - 極端不同意</span>
+                <span>5 - 極端同意</span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="question-label">(9) 我不會為了讓某人幫我做事而假裝喜歡那個人。*</label>
+            <input type="range" class="slider" min="1" max="5" value="3">
+            <div class="slider-labels">
+                <span>1 - 極端不同意</span>
+                <span>5 - 極端同意</span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="question-label">(10) 我會禁不住誘惑用偽鈔，如果我確定絕不會被抓到。*</label>
+            <input type="range" class="slider" min="1" max="5" value="3">
+            <div class="slider-labels">
+                <span>1 - 極端不同意</span>
+                <span>5 - 極端同意</span>
             </div>
         </div>
         
         <div class="nav-buttons">
-            <button class="button next-btn">Next</button>
+            <button class="button prev-btn">上一頁</button>
+            <button class="button next-btn">下一頁</button>
         </div>
     </section>
 
-    <!-- Page 3 -->
-    <section class="page">
-        <div class="page-number"></div> <!-- <-- DYNAMICALLY SET BY JS -->
-        <div class="info-box">
-            <div class="info-box-icon">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.46 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
-            </div>
-            <div>
-                <h3>Please Note</h3>
-                <p>In the following sections, we will present important information. Please read it carefully.</p>
-            </div>
-        </div>
-
-        <p>Here are a few points to note:</p>
-        <ol>
-            <li>After reading the information, we will ask you questions related to it.</li>
-            <li>Our questionnaire does not allow going back to the previous page. You cannot revisit or modify your answers.</li>
-            <li>Later, you will receive a positive or negative assessment based on your answers.</li>
-        </ol>
-        <p>Please read each page carefully to avoid missing any important information and to protect your rights.</p>
-        
-        <div class="nav-buttons">
-            <button class="button next-btn">Next</button>
-        </div>
-    </section>
-
-    <!-- Page 4 -->
+    <!-- Page 7 -->
      <section class="page">
         <div class="page-number"></div> <!-- <-- DYNAMICALLY SET BY JS -->
-        <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=1470&auto=format&fit=crop" alt="Doctor with tablet">
-        <h2>Consultation Reminder</h2>
-        <p>On the next page, please report your dietary behaviors over the past week.</p>
+        <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=1470&auto=format&fit=crop" alt="持有平板電腦的醫生">
+        <h2>諮詢提醒</h2>
+        <p>在下一頁上，請報告您過去一週的飲食行為。</p>
         <ol>
-            <li>You must use the slider to answer the questions.</li>
-            <li>If your answer aligns with the initial position of the slider, please move it slightly and then back to the initial position to help the system recognize your response.</li>
+            <li>您必須使用滑塊回答問題。</li>
+            <li>如果您的答案與滑塊的初始位置一致，請稍微移動它，然後回到初始位置以幫助系統識別您的回應。</li>
         </ol>
         <div class="nav-buttons">
-            <button class="button next-btn">Next</button>
+            <button class="button prev-btn">上一頁</button>
+            <button class="button next-btn">下一頁</button>
         </div>
     </section>
-    
-    <!-- Page 5 -->
+
+    <!-- Page 5: Dietary Reporting Questions (12 items) -->
     <section class="page">
         <div class="page-number"></div> <!-- <-- DYNAMICALLY SET BY JS -->
-        <h2>Report Your Dietary Behaviors</h2>
-        <p>Please report your dietary behavior in the past week. Adjust the slider according to your level of agreement with the statements.</p>
+        <h2>過去一週的飲食回報</h2>
         
+        <p>請根據您對以下敘述的同意程度，使用滑桿作答。</p>
+
         <div class="form-group">
-            <label class="question-label">1. "Did you eat three meals regularly in the last week?"*</label>
+            <label class="question-label">(1) 過去一週你有規律地吃三餐嗎？*</label>
             <input type="range" class="slider" min="0" max="100" value="50">
             <div class="slider-labels">
-                <span>I never ate meals regularly</span>
-                <span>I ate 3 meals regularly every single day</span>
+                <span>我這七天從未規律地吃三餐</span>
+                <span>我這七天都規律地吃三餐</span>
             </div>
         </div>
-        
+
         <div class="form-group">
-            <label class="question-label">2. "Did you not eat sweets or snacks in the last week?"*</label>
+            <label class="question-label">(2) 過去一週你有吃糖果或是零食嗎？*</label>
             <input type="range" class="slider" min="0" max="100" value="50">
             <div class="slider-labels">
-                <span>I ate sweets/snacks every day</span>
-                <span>I never ate sweets or snacks</span>
+                <span>我這七天都有吃糖果或零食</span>
+                <span>我這七天從未吃糖果或零食</span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="question-label">(3) 過去一週你有充分咀嚼食物，每一口至少咀嚼二十次後才吞嚥嗎？*</label>
+            <input type="range" class="slider" min="0" max="100" value="50">
+            <div class="slider-labels">
+                <span>我這七天從未充分咀嚼食物就吞嚥</span>
+                <span>我這七天每一口都至少咀嚼二十次</span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="question-label">(4) 過去一週在口渴或炎熱時，你除了喝白開水外，有喝不健康飲品嗎(含糖或含酒精)?*</label>
+            <input type="range" class="slider" min="0" max="100" value="50">
+            <div class="slider-labels">
+                <span>我這七天都有喝不健康的飲品</span>
+                <span>我這七天都只喝白開水</span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="question-label">(5) 過去一週你有吃油炸或油膩的食物（如花生、薯片、炸雞等）嗎？*</label>
+            <input type="range" class="slider" min="0" max="100" value="50">
+            <div class="slider-labels">
+                <span>我這七天都吃油炸的食物</span>
+                <span>我這七天從未吃油炸的食物</span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="question-label">(6) 過去一週你每天都有吃水果嗎？*</label>
+            <input type="range" class="slider" min="0" max="100" value="50">
+            <div class="slider-labels">
+                <span>我這七天從未吃水果</span>
+                <span>我這七天都有吃水果</span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="question-label">(7) 過去一週你每天都有吃綠色蔬菜嗎？*</label>
+            <input type="range" class="slider" min="0" max="100" value="50">
+            <div class="slider-labels">
+                <span>我這七天從未吃綠色蔬菜</span>
+                <span>我這七天都有吃綠色蔬菜</span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="question-label">(8) 過去一週你每天都有吃宵夜嗎?*</label>
+            <input type="range" class="slider" min="0" max="100" value="50">
+            <div class="slider-labels">
+                <span>我這七天都有吃宵夜</span>
+                <span>我這七天從未吃宵夜</span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="question-label">(9) 過去一週你有一邊看電視或用平板、手機、電腦一邊吃東西嗎？*</label>
+            <input type="range" class="slider" min="0" max="100" value="50">
+            <div class="slider-labels">
+                <span>我這七天吃東西時都會分心</span>
+                <span>我這七天都會專心吃東西</span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="question-label">(10) 過去一週你心情不好時，會透過吃東西讓心情變好嗎？*</label>
+            <input type="range" class="slider" min="0" max="100" value="50">
+            <div class="slider-labels">
+                <span>我這七天都會透過吃東西讓心情變好</span>
+                <span>我這七天從未透過吃東西讓心情變好</span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="question-label">(11) 過去一週你會把吃東西當作獎勵自己或是慶祝的方式嗎？*</label>
+            <input type="range" class="slider" min="0" max="100" value="50">
+            <div class="slider-labels">
+                <span>我這七天都用吃東西獎勵自己</span>
+                <span>我這七天從未用吃東西獎勵自己</span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="question-label">(12) 過去一週你會在非常飢餓的時候，才去賣場採購食物嗎？*</label>
+            <input type="range" class="slider" min="0" max="100" value="50">
+            <div class="slider-labels">
+                <span>我這七天都等到非常餓才採購食物</span>
+                <span>我這七天從未等到非常餓才採購食物</span>
             </div>
         </div>
         
         <div class="nav-buttons">
-            <button class="button next-btn">Next</button>
+            <button class="button prev-btn">上一頁</button>
+            <button class="button next-btn">下一頁</button>
         </div>
     </section>
 
-    <!-- Page 6 -->
+        <!-- Page 4: 自我調節測量 -->
     <section class="page">
-        <div class="page-number"></div> <!-- <-- DYNAMICALLY SET BY JS -->
-        <h2>Your Results</h2>
-        <p>Based on your responses, we have calculated a score for your diet.</p>
-
-        <div class="score-display">
-            <div class="score-label">Your score is</div>
-            <div class="score-number">76</div>
-            <div class="score-label">out of 108</div>
+        <div class="page-number"></div>
+        <h2>自我調節測量</h2>
+        
+        <p>以下問題是關於您開始或維持規律進行疾病自我管理的原因。不同的人有不同的理由做這件事，我們希望了解對您而言，以下各項原因的真實程度。所有 15 個回答皆對應同一個問題。</p>
+        
+        <p>請使用以下的 7 分量表，指出每個原因對您來說的真實程度：</p>
+        
+        <div style="background-color: #f0f9ff; color: #0c4a6e; padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem; font-size: 0.9rem; text-align: center;">
+            <p style="margin: 0.5rem 0; color: #0c4a6e;"><strong>1 &nbsp; 2 &nbsp; 3 &nbsp; 4 &nbsp; 5 &nbsp; 6 &nbsp; 7</strong></p>
+            <p style="margin: 0; color: #0c4a6e;">一點也不真實 —— 部分真實 —— 完全真實</p>
         </div>
 
-        <h3 style="margin-top: 2rem;">Suggestions</h3>
-        <p>Here are some recommendations relevant to your score:</p>
+        <p style="font-weight: 600; margin-top: 1.5rem; margin-bottom: 1rem;">我進行疾病自我管理的原因是：</p>
+
+        <div class="form-group">
+            <label class="question-label">(1) 因為我覺得我想要為自己的健康負責。*</label>
+            <input type="range" class="slider" min="1" max="7" value="4">
+            <div class="slider-labels">
+                <span>1 - 一點也不真實</span>
+                <span>7 - 完全真實</span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="question-label">(2) 因為如果我沒有管理自己的疾病，我會感到愧疚或羞愧。*</label>
+            <input type="range" class="slider" min="1" max="7" value="4">
+            <div class="slider-labels">
+                <span>1 - 一點也不真實</span>
+                <span>7 - 完全真實</span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="question-label">(3) 因為我個人認為這對我的健康最好。*</label>
+            <input type="range" class="slider" min="1" max="7" value="4">
+            <div class="slider-labels">
+                <span>1 - 一點也不真實</span>
+                <span>7 - 完全真實</span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="question-label">(4) 因為如果我沒有這麼做，其他人會對我感到生氣。*</label>
+            <input type="range" class="slider" min="1" max="7" value="4">
+            <div class="slider-labels">
+                <span>1 - 一點也不真實</span>
+                <span>7 - 完全真實</span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="question-label">(5) 我絲毫沒有考慮這件事。*</label>
+            <input type="range" class="slider" min="1" max="7" value="4">
+            <div class="slider-labels">
+                <span>1 - 一點也不真實</span>
+                <span>7 - 完全真實</span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="question-label">(6) 因為我認真思考過這件事，並相信這對我生活的許多層面都很重要。*</label>
+            <input type="range" class="slider" min="1" max="7" value="4">
+            <div class="slider-labels">
+                <span>1 - 一點也不真實</span>
+                <span>7 - 完全真實</span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="question-label">(7) 因為如果我沒有管理自己的疾病，我會對自己感覺很糟。*</label>
+            <input type="range" class="slider" min="1" max="7" value="4">
+            <div class="slider-labels">
+                <span>1 - 一點也不真實</span>
+                <span>7 - 完全真實</span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="question-label">(8) 因為這是我非常想做的一個重要選擇。*</label>
+            <input type="range" class="slider" min="1" max="7" value="4">
+            <div class="slider-labels">
+                <span>1 - 一點也不真實</span>
+                <span>7 - 完全真實</span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="question-label">(9) 因為其他人這麼做讓我感到壓力。*</label>
+            <input type="range" class="slider" min="1" max="7" value="4">
+            <div class="slider-labels">
+                <span>1 - 一點也不真實</span>
+                <span>7 - 完全真實</span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="question-label">(10) 因為照著別人告訴我的去做，比自己思考該做什麼更容易。*</label>
+            <input type="range" class="slider" min="1" max="7" value="4">
+            <div class="slider-labels">
+                <span>1 - 一點也不真實</span>
+                <span>7 - 完全真實</span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="question-label">(11) 因為這與我的人生目標一致。*</label>
+            <input type="range" class="slider" min="1" max="7" value="4">
+            <div class="slider-labels">
+                <span>1 - 一點也不真實</span>
+                <span>7 - 完全真實</span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="question-label">(12) 因為我想要得到他人的認可。*</label>
+            <input type="range" class="slider" min="1" max="7" value="4">
+            <div class="slider-labels">
+                <span>1 - 一點也不真實</span>
+                <span>7 - 完全真實</span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="question-label">(13) 因為這對於盡可能維持健康非常重要。*</label>
+            <input type="range" class="slider" min="1" max="7" value="4">
+            <div class="slider-labels">
+                <span>1 - 一點也不真實</span>
+                <span>7 - 完全真實</span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="question-label">(14) 因為我想讓他人看到我能夠做到這件事。*</label>
+            <input type="range" class="slider" min="1" max="7" value="4">
+            <div class="slider-labels">
+                <span>1 - 一點也不真實</span>
+                <span>7 - 完全真實</span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="question-label">(15) 我真的不知道為什麼。*</label>
+            <input type="range" class="slider" min="1" max="7" value="4">
+            <div class="slider-labels">
+                <span>1 - 一點也不真實</span>
+                <span>7 - 完全真實</span>
+            </div>
+        </div>
+
+        <div class="nav-buttons">
+            <button class="button prev-btn">上一頁</button>
+            <button class="button next-btn">下一頁</button>
+        </div>
+    </section>
+
+    
+
+    <!-- Page 9: 自我建構量表 -->
+    <section class="page">
+        <div class="page-number"></div>
+        <h2>自我建構量表</h2>
+        
+        <p>答案沒有好壞或對錯的分別，請您依照內心真正的意思來填答即可。請您仔細閱讀每一題目，並依您的實際狀況，圈選一個最符合您的數字。</p>
+        
+        <p>請使用以下的 7 分量表，指出每個原因對您來說的真實程度：</p>
+
+        <div style="background-color: #f0f9ff; color: #0c4a6e; padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem; font-size: 0.9rem; text-align: center;">
+            <p style="margin: 0; color: #0c4a6e;"><strong>1 - 非常不同意　　　　　　7 - 非常同意</strong></p>
+        </div>
+
+        <div class="form-group">
+            <label class="question-label">(1) 對我而言，和屬於同一團體中的人維持和諧的關係是很重要的。*</label>
+            <input type="range" class="slider" min="1" max="7" value="4">
+            <div class="slider-labels">
+                <span>1 - 非常不同意</span>
+                <span>7 - 非常同意</span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="question-label">(2) 對我而言，尊重團體所做的（決定）是很重要的。*</label>
+            <input type="range" class="slider" min="1" max="7" value="4">
+            <div class="slider-labels">
+                <span>1 - 非常不同意</span>
+                <span>7 - 非常同意</span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="question-label">(3) 在作教育與生涯規畫時，我應該將父母的建議與意見視為重要。*</label>
+            <input type="range" class="slider" min="1" max="7" value="4">
+            <div class="slider-labels">
+                <span>1 - 非常不同意</span>
+                <span>7 - 非常同意</span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="question-label">(4) 為了我所屬團體的福祉，我可以犧牲自己的利益。*</label>
+            <input type="range" class="slider" min="1" max="7" value="4">
+            <div class="slider-labels">
+                <span>1 - 非常不同意</span>
+                <span>7 - 非常同意</span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="question-label">(5) 當面臨重要的個人抉擇時，我會問問我的家人和親戚的意見。*</label>
+            <input type="range" class="slider" min="1" max="7" value="4">
+            <div class="slider-labels">
+                <span>1 - 非常不同意</span>
+                <span>7 - 非常同意</span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="question-label">(6) 在公車上或重要的事情時，我會問問我長輩的意見。*</label>
+            <input type="range" class="slider" min="1" max="7" value="4">
+            <div class="slider-labels">
+                <span>1 - 非常不同意</span>
+                <span>7 - 非常同意</span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="question-label">(7) 即使我在我的團體中並不快樂，但如果他們需要我，我還是會留下來。*</label>
+            <input type="range" class="slider" min="1" max="7" value="4">
+            <div class="slider-labels">
+                <span>1 - 非常不同意</span>
+                <span>7 - 非常同意</span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="question-label">(8) 即使我相當不贊同團體中其他成員的看法，我也不會與他們爭執。*</label>
+            <input type="range" class="slider" min="1" max="7" value="4">
+            <div class="slider-labels">
+                <span>1 - 非常不同意</span>
+                <span>7 - 非常同意</span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="question-label">(9) 我的快樂是建立在我周圍人的快樂的基礎上。*</label>
+            <input type="range" class="slider" min="1" max="7" value="4">
+            <div class="slider-labels">
+                <span>1 - 非常不同意</span>
+                <span>7 - 非常同意</span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="question-label">(10) 我經常覺得，我和他人的關係比我自己的成就還重要。*</label>
+            <input type="range" class="slider" min="1" max="7" value="4">
+            <div class="slider-labels">
+                <span>1 - 非常不同意</span>
+                <span>7 - 非常同意</span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="question-label">(11) 如果我的兄弟或姊妹在某件事上失敗了，我會覺得我也有責任。*</label>
+            <input type="range" class="slider" min="1" max="7" value="4">
+            <div class="slider-labels">
+                <span>1 - 非常不同意</span>
+                <span>7 - 非常同意</span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="question-label">(12) 在課堂上直接說出自己的看法，對我而言不是問題。*</label>
+            <input type="range" class="slider" min="1" max="7" value="4">
+            <div class="slider-labels">
+                <span>1 - 非常不同意</span>
+                <span>7 - 非常同意</span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="question-label">(13) 和剛認識的人相處時，我喜歡直接來往。*</label>
+            <input type="range" class="slider" min="1" max="7" value="4">
+            <div class="slider-labels">
+                <span>1 - 非常不同意</span>
+                <span>7 - 非常同意</span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="question-label">(14) 在初次見面之後，即使對方年紀比我大很多，我也會自然地用敬語稱呼對方。*</label>
+            <input type="range" class="slider" min="1" max="7" value="4">
+            <div class="slider-labels">
+                <span>1 - 非常不同意</span>
+                <span>7 - 非常同意</span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="question-label">(15) 不論在學校或工作場合，我都會表現出我是什麼樣子的人。*</label>
+            <input type="range" class="slider" min="1" max="7" value="4">
+            <div class="slider-labels">
+                <span>1 - 非常不同意</span>
+                <span>7 - 非常同意</span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="question-label">(16) 在一群人中，只要有一個人安慰或鼓勵我，我就不會覺得被忽略。*</label>
+            <input type="range" class="slider" min="1" max="7" value="4">
+            <div class="slider-labels">
+                <span>1 - 非常不同意</span>
+                <span>7 - 非常同意</span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="question-label">(17) 我寧願直接說出來，也不願意被人誤解成「不」。*</label>
+            <input type="range" class="slider" min="1" max="7" value="4">
+            <div class="slider-labels">
+                <span>1 - 非常不同意</span>
+                <span>7 - 非常同意</span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="question-label">(18) 對我而言，能夠擁有獨立於他人的自我認同（成為自己）是非常重要的。*</label>
+            <input type="range" class="slider" min="1" max="7" value="4">
+            <div class="slider-labels">
+                <span>1 - 非常不同意</span>
+                <span>7 - 非常同意</span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="question-label">(19) 我希望養育的孩子是能不依賴他人的認同而覺得自己很重要的。*</label>
+            <input type="range" class="slider" min="1" max="7" value="4">
+            <div class="slider-labels">
+                <span>1 - 非常不同意</span>
+                <span>7 - 非常同意</span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="question-label">(20) 在許多方面，我擁有屬於我一個人的特色並且與眾不同。*</label>
+            <input type="range" class="slider" min="1" max="7" value="4">
+            <div class="slider-labels">
+                <span>1 - 非常不同意</span>
+                <span>7 - 非常同意</span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="question-label">(21) 對我而言，擁有豐富的想像力是很重要的。*</label>
+            <input type="range" class="slider" min="1" max="7" value="4">
+            <div class="slider-labels">
+                <span>1 - 非常不同意</span>
+                <span>7 - 非常同意</span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="question-label">(22) 當參與能滿足個人好奇心的活動時，就是我自己做一些我想做的事情，我會問自己我最想做什麼。*</label>
+            <input type="range" class="slider" min="1" max="7" value="4">
+            <div class="slider-labels">
+                <span>1 - 非常不同意</span>
+                <span>7 - 非常同意</span>
+            </div>
+        </div>
+
+        <div class="nav-buttons">
+            <button class="button prev-btn">上一頁</button>
+            <button class="button next-btn">下一頁</button>
+        </div>
+    </section>
+
+    <!-- Page 10 -->
+    <section class="page">
+        <div class="page-number"></div> <!-- <-- DYNAMICALLY SET BY JS -->
+        <h2>您的結果</h2>
+        <p>根據您的回應，我們為您的飲食計算了一個分數。</p>
+
+        <div class="score-display">
+            <div class="score-label">您的分數是</div>
+            <div class="score-number">76</div>
+            <div class="score-label">滿分108</div>
+        </div>
+
+        <h3 style="margin-top: 2rem;">建議</h3>
+        <p>以下是與您的分數相關的一些建議：</p>
         
         <div class="info-box" style="background-color: #f0f9ff; color: #0c4a6e;">
             <div>
-                <h4>Score Range: 61-90</h4>
-                <p style="color: #0c4a6e;">Although you are doing slightly better, don't rest on your laurels. Please make an effort to change your dietary habits.</p>
+                <h4>分數範圍：61-90</h4>
+                <p style="color: #0c4a6e;">雖然您做得稍微好一點，但不要自滿。請努力改變您的飲食習慣。</p>
             </div>
         </div>
 
         <div class="nav-buttons">
-            <button class="button next-btn">Next</button>
+            <button class="button prev-btn">上一頁</button>
+            <button class="button next-btn">下一頁</button>
         </div>
     </section>
     
-    <!-- Final Page 7 -->
+    <!-- Final Page 11 -->
     <section class="page">
         <div class="page-number"></div> <!-- <-- DYNAMICALLY SET BY JS -->
-        <h2>Thank You!</h2>
-        <p>You have completed the survey. Your responses have been recorded.</p>
+        <h2>謝謝您！</h2>
+        <p>您已完成問卷。您的回應已被記錄。</p>
         <div class="nav-buttons">
-             <button class="button">Finish</button>
+            <button class="button prev-btn">上一頁</button>
+            <button class="button">完成</button>
         </div>
     </section>
 
@@ -443,8 +1070,19 @@
     document.addEventListener('DOMContentLoaded', () => {
         const pages = document.querySelectorAll('.page');
         const nextButtons = document.querySelectorAll('.next-btn');
+        const prevButtons = document.querySelectorAll('.prev-btn');
         const totalPages = pages.length; // <-- Get total number of pages
         let currentPageIndex = 0;
+
+        // Handle consent checkbox
+        const consentCheckbox = document.querySelector('input[name="consent-agreement"]');
+        const consentNextBtn = document.getElementById('consent-next-btn');
+        
+        if (consentCheckbox && consentNextBtn) {
+            consentCheckbox.addEventListener('change', () => {
+                consentNextBtn.disabled = !consentCheckbox.checked;
+            });
+        }
 
         function showPage(index) {
             // Hide all pages
@@ -460,6 +1098,12 @@
                 if (pageNumberElement) {
                     pageNumberElement.textContent = `${index + 1} / ${totalPages}`;
                 }
+                
+                // Show/hide previous button based on current page
+                const prevBtn = currentPage.querySelector('.prev-btn');
+                if (prevBtn) {
+                    prevBtn.style.visibility = index === 0 ? 'hidden' : 'visible';
+                }
             }
         }
 
@@ -470,6 +1114,17 @@
                 
                 if (currentIndex < pages.length - 1) {
                     showPage(currentIndex + 1);
+                }
+            });
+        });
+        
+        prevButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const currentPage = button.closest('.page');
+                const currentIndex = Array.from(pages).indexOf(currentPage);
+                
+                if (currentIndex > 0) {
+                    showPage(currentIndex - 1);
                 }
             });
         });
